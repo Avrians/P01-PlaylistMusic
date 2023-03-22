@@ -261,4 +261,30 @@ public class Playlist extends javax.swing.JFrame {
             koleksi.add(m);
         }
     }
+
+    // Method untuk membaca semua file mp3 di dalam folder dan sub-folder
+    private void addFolder(File dir) {
+        File[] listOfFiles = dir.listFiles();
+        for (File listOfFile : listOfFiles) {
+            if (listOfFile.isFile()) {
+                String path = listOfFile.getAbsolutePath();
+                String fn = listOfFile.getName();
+                String fileName = fn.substring(0, fn.length() - 4);
+                String fileSize = fileSizeOf(listOfFile);
+                String extension;
+                int i = path.lastIndexOf('.');
+                if (i > 0) {
+                    extension = extensionOf(listOfFile);
+                    if ("mp3".equalsIgnoreCase(extension)) {
+                        Musik m = new Musik(path, fileName, fileSize, extension);
+                        koleksi.add(m);
+                    }
+                }
+            } else if (listOfFile.isDirectory()) {
+                addFolder(listOfFile);
+            }
+        }
+    }
+    
+    
 }
