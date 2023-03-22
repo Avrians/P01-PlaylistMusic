@@ -52,7 +52,7 @@ public class Playlist extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPlaylist = new javax.swing.JTable();
 
-        addFiles.setText("jMenuItem1");
+        addFiles.setText("Add File");
         addFiles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addFilesActionPerformed(evt);
@@ -60,10 +60,20 @@ public class Playlist extends javax.swing.JFrame {
         });
         popupTombol.add(addFiles);
 
-        addFolder.setText("jMenuItem1");
+        addFolder.setText("Add Folder");
+        addFolder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addFolderActionPerformed(evt);
+            }
+        });
         popupTombol.add(addFolder);
 
-        clearPlaylist.setText("jMenuItem1");
+        clearPlaylist.setText("Clear Playlist");
+        clearPlaylist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearPlaylistActionPerformed(evt);
+            }
+        });
         popupTombol.add(clearPlaylist);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -149,8 +159,36 @@ public class Playlist extends javax.swing.JFrame {
     }//GEN-LAST:event_tblPlaylistMouseClicked
 
     private void addFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFilesActionPerformed
-        // TODO add your handling code here:
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogType(JFileChooser.FILES_ONLY);
+        fc.setMultiSelectionEnabled(true);
+        fc.setDialogTitle("Add Files");
+        fc.setAcceptAllFileFilterUsed(false);
+        fc.setFileFilter(new FileNameExtensionFilter("MP3 File (*.mp3)","mp3"));
+        fc.setApproveButtonText("Add Files");
+        int show = fc.showOpenDialog(this);
+        if (show == JFileChooser.APPROVE_OPTION) {
+            File[] files = fc.getSelectedFiles();
+            addFiles(files);
+        }
     }//GEN-LAST:event_addFilesActionPerformed
+
+    private void addFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFolderActionPerformed
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogType(JFileChooser.DIRECTORIES_ONLY);
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fc.setDialogTitle("Add Folder");
+        fc.setApproveButtonText("Add Folder");
+        int show = fc.showOpenDialog(this);
+        if (show == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            addFolder(file);
+        }
+    }//GEN-LAST:event_addFolderActionPerformed
+
+    private void clearPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearPlaylistActionPerformed
+        koleksi.clear();
+    }//GEN-LAST:event_clearPlaylistActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,6 +326,5 @@ public class Playlist extends javax.swing.JFrame {
             }
         }
     }
-    
-    
+
 }
