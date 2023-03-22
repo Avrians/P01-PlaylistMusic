@@ -244,4 +244,21 @@ public class Playlist extends javax.swing.JFrame {
         }
         return fileExtension;
     }
+
+    // Method untuk mengkoleksi semua file mp3 yang dipilih
+    private void addFiles(File[] files) {
+        for (File file : files) {
+            String path = file.getAbsolutePath();
+            String fn = file.getName();
+            String fileName = fn.substring(0, fn.length() - 4);
+            String fileSize = fileSizeOf(file);
+            String extension = "";
+            int i = path.lastIndexOf('.');
+            if (i > 0) {
+                extension = extensionOf(file);
+            }
+            Musik m = new Musik(path, fileName, fileSize, extension);
+            koleksi.add(m);
+        }
+    }
 }
