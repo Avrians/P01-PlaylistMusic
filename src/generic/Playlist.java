@@ -196,7 +196,6 @@ public class Playlist extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     //  Method untuk pengaturan lebar dan tinggi kolom pada tabel
-    
     private void resizeListener() {
         addComponentListener(new ComponentAdapter() {
             @Override
@@ -219,4 +218,21 @@ public class Playlist extends javax.swing.JFrame {
             tblPlaylist.setRowHeight(27);
         }
     }
+
+    // Method untuk membaca ukuran file
+    private String fileSizeOf(File file) {
+        DecimalFormat format = new DecimalFormat("#.##");
+        long MB = 1024 * 1024;
+        long KB = 1024;
+        final double length = file.length();
+        if (length > MB) {
+            return format.format(length / MB) + " MB";
+        }
+        if (length > KB) {
+            return format.format(length / KB) + " KB";
+        }
+        return format.format(length) + " B";
+    }
+    
+    
 }
