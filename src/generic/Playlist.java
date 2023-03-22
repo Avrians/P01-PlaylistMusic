@@ -29,6 +29,9 @@ public class Playlist extends javax.swing.JFrame {
      */
     public Playlist() {
         initComponents();
+        tblPlaylist.setModel(koleksi);
+        resizeColumns();
+        resizeListener();
     }
 
     /**
@@ -117,13 +120,13 @@ public class Playlist extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlaylistActionPerformed
-        popupBtn1.show(btnPlaylist, btnPlaylist.getWidth(), btnPlaylist.getHeight() / 2);
+        popupTombol.show(btnPlaylist, btnPlaylist.getWidth(), btnPlaylist.getHeight() / 2);
     }//GEN-LAST:event_btnPlaylistActionPerformed
 
     private void tblPlaylistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPlaylistMouseClicked
         int i = tblPlaylist.getSelectedRow();
         if (evt.getClickCount() == 2 && i != 1) {
-            Music m = koleksi.get(i);
+            Musik m = koleksi.get(i);
             JOptionPane.showMessageDialog(this,
                     "<html>"
                     + "<head>"
@@ -137,7 +140,7 @@ public class Playlist extends javax.swing.JFrame {
                     + "table"
                     + "<tr><td>Lokasi</td><td>:</td><td> " + m.getPath() + "</td></tr>"
                     + "<tr><td>Nama File</td><td>:</td><td> " + m.getFileName() + "</td></tr>"
-                    + "<tr><td>Ukuran</td><td>:</td><td> " + m.getFilseSize() + "</td></tr>"
+                    + "<tr><td>Ukuran</td><td>:</td><td> " + m.getFileSize() + "</td></tr>"
                     + "<tr><td>Ekstensi</td><td>:</td><td> " + m.getExtention() + "</td></tr>"
                     + "</table>"
                     + "</body>"
