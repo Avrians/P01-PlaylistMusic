@@ -233,6 +233,15 @@ public class Playlist extends javax.swing.JFrame {
         }
         return format.format(length) + " B";
     }
-    
-    
+
+    // Method untuk mendapatkan ekstensi sebuah file
+    private String extensionOf(File file) {
+        String fileExtension = "";
+        String fileName = file.getName();
+        if (fileName.contains(".") && fileName.lastIndexOf(".") != 0) {
+            fileExtension
+                    = fileName.substring(fileName.lastIndexOf(".") + 1);
+        }
+        return fileExtension;
+    }
 }
