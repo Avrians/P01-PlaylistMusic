@@ -4,11 +4,25 @@
  */
 package generic;
 
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.io.File;
+import java.text.DecimalFormat;
+import java.util.List;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author avrians
  */
 public class Playlist extends javax.swing.JFrame {
+
+    DaftarMusik koleksi = new DaftarMusik();
 
     /**
      * Creates new form Playlist
@@ -26,10 +40,28 @@ public class Playlist extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        popupTombol = new javax.swing.JPopupMenu();
+        addFiles = new javax.swing.JMenuItem();
+        addFolder = new javax.swing.JMenuItem();
+        clearPlaylist = new javax.swing.JMenuItem();
         pnFooter = new javax.swing.JPanel();
         btnPlaylist = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPlaylist = new javax.swing.JTable();
+
+        addFiles.setText("jMenuItem1");
+        addFiles.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addFilesActionPerformed(evt);
+            }
+        });
+        popupTombol.add(addFiles);
+
+        addFolder.setText("jMenuItem1");
+        popupTombol.add(addFolder);
+
+        clearPlaylist.setText("jMenuItem1");
+        popupTombol.add(clearPlaylist);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,33 +117,37 @@ public class Playlist extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlaylistActionPerformed
-        popupBtn1.show(btnPlaylist,btnPlaylist.getWidth(),btnPlaylist.getHeight()/2);
+        popupBtn1.show(btnPlaylist, btnPlaylist.getWidth(), btnPlaylist.getHeight() / 2);
     }//GEN-LAST:event_btnPlaylistActionPerformed
 
     private void tblPlaylistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPlaylistMouseClicked
         int i = tblPlaylist.getSelectedRow();
-        if(evt.getClickCount()==2 && i!=1){
+        if (evt.getClickCount() == 2 && i != 1) {
             Music m = koleksi.get(i);
             JOptionPane.showMessageDialog(this,
-                "<html>"
-                +"<head>"
-                +"<style>"
-                +"table {border-collapse: collapse; border: 1px solid blue;}"
-                +"tr {border-bottom: 1pt solid black;}"
-                +"</style>"
-                +"</head>"
-                +"<body>"
-                +"<h3>Detail Musik:</h3?"
-                +"table"
-                +"<tr><td>Lokasi</td><td>:</td><td> "+ m.getPath() + "</td></tr>"
-                +"<tr><td>Nama File</td><td>:</td><td> "+ m.getFileName() + "</td></tr>"
-                +"<tr><td>Ukuran</td><td>:</td><td> "+ m.getFilseSize() + "</td></tr>"
-                +"<tr><td>Ekstensi</td><td>:</td><td> "+ m.getExtention() + "</td></tr>"
-                +"</table>"
-                +"</body>"
-                +"</html>");
+                    "<html>"
+                    + "<head>"
+                    + "<style>"
+                    + "table {border-collapse: collapse; border: 1px solid blue;}"
+                    + "tr {border-bottom: 1pt solid black;}"
+                    + "</style>"
+                    + "</head>"
+                    + "<body>"
+                    + "<h3>Detail Musik:</h3?"
+                    + "table"
+                    + "<tr><td>Lokasi</td><td>:</td><td> " + m.getPath() + "</td></tr>"
+                    + "<tr><td>Nama File</td><td>:</td><td> " + m.getFileName() + "</td></tr>"
+                    + "<tr><td>Ukuran</td><td>:</td><td> " + m.getFilseSize() + "</td></tr>"
+                    + "<tr><td>Ekstensi</td><td>:</td><td> " + m.getExtention() + "</td></tr>"
+                    + "</table>"
+                    + "</body>"
+                    + "</html>");
         }
     }//GEN-LAST:event_tblPlaylistMouseClicked
+
+    private void addFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFilesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addFilesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,9 +185,38 @@ public class Playlist extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem addFiles;
+    private javax.swing.JMenuItem addFolder;
     private javax.swing.JButton btnPlaylist;
+    private javax.swing.JMenuItem clearPlaylist;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnFooter;
+    private javax.swing.JPopupMenu popupTombol;
     private javax.swing.JTable tblPlaylist;
     // End of variables declaration//GEN-END:variables
+
+    //  Method untuk pengaturan lebar dan tinggi kolom pada tabel
+    
+    private void resizeListener() {
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                resizeColumns();
+            }
+        });
+    }
+
+    private void resizeColumns() {
+        float[] columnWidthPercentage = {90.0f, 10.0f};
+        int tW = tblPlaylist.getWidth();
+        TableColumn column;
+        TableColumnModel jTableColumnModel = tblPlaylist.getColumnModel();
+        int cantCols = jTableColumnModel.getColumnCount();
+        for (int i = 0; i < cantCols; i++) {
+            column = jTableColumnModel.getColumn(i);
+            int pWidth = Math.round(columnWidthPercentage[i] * tW);
+            column.setPreferredWidth(pWidth);
+            tblPlaylist.setRowHeight(27);
+        }
+    }
 }
