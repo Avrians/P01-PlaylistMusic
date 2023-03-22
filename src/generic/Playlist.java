@@ -26,21 +26,92 @@ public class Playlist extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnFooter = new javax.swing.JPanel();
+        btnPlaylist = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblPlaylist = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        pnFooter.setPreferredSize(new java.awt.Dimension(400, 50));
+
+        btnPlaylist.setText("Playlist");
+        btnPlaylist.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlaylistActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnFooterLayout = new javax.swing.GroupLayout(pnFooter);
+        pnFooter.setLayout(pnFooterLayout);
+        pnFooterLayout.setHorizontalGroup(
+            pnFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnFooterLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnPlaylist)
+                .addContainerGap(318, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        pnFooterLayout.setVerticalGroup(
+            pnFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnFooterLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnPlaylist)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
+
+        getContentPane().add(pnFooter, java.awt.BorderLayout.PAGE_END);
+
+        tblPlaylist.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblPlaylist.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPlaylistMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblPlaylist);
+
+        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPlaylistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlaylistActionPerformed
+        popupBtn1.show(btnPlaylist,btnPlaylist.getWidth(),btnPlaylist.getHeight()/2);
+    }//GEN-LAST:event_btnPlaylistActionPerformed
+
+    private void tblPlaylistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPlaylistMouseClicked
+        int i = tblPlaylist.getSelectedRow();
+        if(evt.getClickCount()==2 && i!=1){
+            Music m = koleksi.get(i);
+            JOptionPane.showMessageDialog(this,
+                "<html>"
+                +"<head>"
+                +"<style>"
+                +"table {border-collapse: collapse; border: 1px solid blue;}"
+                +"tr {border-bottom: 1pt solid black;}"
+                +"</style>"
+                +"</head>"
+                +"<body>"
+                +"<h3>Detail Musik:</h3?"
+                +"table"
+                +"<tr><td>Lokasi</td><td>:</td><td> "+ m.getPath() + "</td></tr>"
+                +"<tr><td>Nama File</td><td>:</td><td> "+ m.getFileName() + "</td></tr>"
+                +"<tr><td>Ukuran</td><td>:</td><td> "+ m.getFilseSize() + "</td></tr>"
+                +"<tr><td>Ekstensi</td><td>:</td><td> "+ m.getExtention() + "</td></tr>"
+                +"</table>"
+                +"</body>"
+                +"</html>");
+        }
+    }//GEN-LAST:event_tblPlaylistMouseClicked
 
     /**
      * @param args the command line arguments
@@ -78,5 +149,9 @@ public class Playlist extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPlaylist;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel pnFooter;
+    private javax.swing.JTable tblPlaylist;
     // End of variables declaration//GEN-END:variables
 }
